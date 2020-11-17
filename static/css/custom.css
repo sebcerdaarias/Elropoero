@@ -1,0 +1,49 @@
+button:focus {
+    outline: 0;
+}
+
+.navbar .dropdown-menu .form-control {
+    width: 200px;
+}
+
+.bg-nav {
+    background-color: rgb(231, 86, 37);
+    margin-left: -15px;
+}
+
+.logo {
+    height: 40px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 90%;
+}
+
+#main {
+    overflow: auto;
+    padding-bottom: 150px;
+    /* this needs to be bigger than footer height*/
+}
+
+.footer {
+    position: relative;
+    margin-top: -50px;
+    /* negative value of footer height */
+    height: 60px;
+    clear: both;
+    padding-top: 20px;
+    color: #fffeca;
+    background-color: #F97DCC;
+    text-align: center;
+    margin-left: -15px;
+}
+
+.acive-li-nav {
+    background-color: red;
+    color: white;
+}

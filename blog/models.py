@@ -17,3 +17,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class imagenes(models.Model):
+    name = models.CharField(max_length=200)
+    imagen = models.TextField()
+    active = models.BooleanField(default=False)
+
+    def activate(self):
+        self.active = True
+        self.save()
+
+    def deactivate(self):
+        self.active = False
+        self.save()
