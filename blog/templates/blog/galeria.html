@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %} {% block content %} {% for producto in Productos %}
+<div class="product-card card ">
+    <div id="product-img">
+        <img class="product-img card-img-top img-fluid" src="{{ producto.image.url}}" alt="{{producto.nombre}}">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{producto.nombre}}</h5>
+        <p class="card-text">{{producto.descripcion}}</p>
+        <a href="#" class="btn btn-primary">{{producto.valor}}</a>
+    </div>
+</div>
+{% endfor %} {% endblock %}

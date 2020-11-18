@@ -31,3 +31,19 @@ class imagenes(models.Model):
     def deactivate(self):
         self.active = False
         self.save()
+
+
+class Productos(models.Model):
+    nombre = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='images/')
+    valor = models.IntegerField()
+    descripcion = models.CharField(max_length=200)
+    active = models.BooleanField(default=True)
+
+    def activate(self):
+        self.active = True
+        self.save()
+
+    def deactivate(self):
+        self.active = False
+        self.save()
