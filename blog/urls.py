@@ -10,6 +10,12 @@ urlpatterns = [
     path('post/new', views.post_new, name='post_new'),
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('', views.index, name='index'),
-    #path('', views.home, name='home'),
+
+    #path('welcome', views.welcome name='welcome'),
+    #path('login', views.login name='login'),
+    #path('register', views.register name='register),
+    #path('logout', views.logout name='logout'),
+
+   
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
