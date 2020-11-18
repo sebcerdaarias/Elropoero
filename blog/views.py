@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post, imagenes
+from .models import Post, imagenes, Productos
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm
 from django.shortcuts import redirect
@@ -53,3 +53,8 @@ def home(request):
 def index(request):
     imagene = imagenes.objects.filter(active=True)
     return render(request, 'blog/index.html', {'imagenes': imagene})
+
+
+def galeria(request):
+    Producto = Productos.objects.filter(active=True)
+    return render(request, 'blog/galeria.html', {'Productos': Producto})
