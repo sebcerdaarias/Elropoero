@@ -22,6 +22,8 @@ body {
 
 #wrap {
     min-height: 90%;
+    padding: 1em;
+    overflow: hidden;
 }
 
 #main {
@@ -46,4 +48,15 @@ body {
 .acive-li-nav {
     background-color: red;
     color: white;
+}
+
+.product-card {
+    width: 15rem;
+    margin: 1em;
+    padding: 1em;
+    float: left;
+}
+
+.product-img {
+    height: 254px !important;
 }

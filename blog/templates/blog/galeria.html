@@ -1,47 +1,12 @@
 {% extends 'blog/base.html' %} {% block content %} {% for producto in Productos %}
-<div class="col-md-3">
-    <figure class="card card-product">
-        <div class="img-wrap">
-            <img class="img-fluid" src="{{ producto.image.url}}">
-            <a class="btn-overlay" href="#"> {{producto.nombre}}</a>
-        </div>
-        <figcaption class="info-wrap">
-            <hr>
-            <p class="title text-dots">{{producto.descripcion}}</p>
-            <hr>
-            <div class="action-wrap">
-                <a href="#" class="btn btn-primary btn-sm float-right">Detalle </a>
-                <div class="price-wrap h5">
-                    <span class="price-new">{{producto.valor}}</span>
-                </div>
-                <!-- price-wrap.// -->
-            </div>
-            <!-- action-wrap -->
-        </figcaption>
-    </figure>
-    <!-- card // -->
+<div class="product-card card ">
+    <div id="product-img">
+        <img class="product-img card-img-top img-fluid" src="{{ producto.image.url}}" alt="{{producto.nombre}}">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{producto.nombre}}</h5>
+        <p class="card-text">{{producto.descripcion}}</p>
+        <a href="#" class="btn btn-primary">{{producto.valor}}</a>
+    </div>
 </div>
-<!-- col // -->
-
-<script>
-    $(document).ready(function() {
-        var z = "";
-        var x = [];
-        $('.price-new').each(function(index, obj) {
-            x.push($(this).text());
-        })
-        x.forEach(function(element) {
-            debugger
-            if (element.length == 5) {
-                z = element.substring(0, 2) + '.' + element.substring(2);
-            }
-            if (element.length == 4) {
-                z = element.substring(0, 1) + '.' + element.substring(1, 4);
-            }
-            $(this).text('$' + z)
-
-            z = "";
-        })
-    })
-</script>
 {% endfor %} {% endblock %}
