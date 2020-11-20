@@ -2,15 +2,16 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.contrib import messages
 from .models import *
-from .models import Post, imagenes, Productos
+from .models import Post, imagenes, Productos, Userreset
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm, ProductForm
+from .forms import PostForm, ProductForm, UserresetForm
 from django.shortcuts import redirect
 
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as do_login
+
 
 def post_list(request):
     posts = Post.objects.filter(
@@ -65,11 +66,11 @@ def galeria(request):
     Producto = Productos.objects.filter(active=True)
     return render(request, 'blog/galeria.html', {'Productos': Producto})
 
+
 def logout(request):
     do_logout(request)
     return redirect('index')
 
-        
 
 def login(request):
     # Creamos el formulario de autenticación vacío
@@ -96,11 +97,12 @@ def login(request):
     # Si llegamos al final renderizamos el formulario
     return render(request, "blog/login.html", {'form': form})
 
-def Producto_new(request):
+
+def producto_new(request):
     data = {
-        'form':ProductForm()
+        'form': ProductForm()
     }
-    if request.user.is_staff:  
+    if request.user.is_staff:
         if request.method == "POST":
             formulario = ProductForm(request.POST, files=request.FILES)
             if formulario.is_valid():
@@ -112,5 +114,20 @@ def Producto_new(request):
         return redirect('galeria')
 
 
+def producto_edit(request, pk):
+    if request.user.is_staff:
+        producto = get_object_or_404(Productos, pk=pk)
+        if request.method == "POST":
+            form = ProductForm(request.POST, request.FILES, instance=producto)
+            if form.is_valid():
+                form.save()
+                return redirect('galeria')
+        else:
+            form = ProductForm(instance=producto)
+        return render(request, 'blog/producto_edit.html', {'form': form})
 
 
+def producto_del(request, pk):
+    producto = Productos.objects.filter(pk=pk)
+    producto.delete()
+    return redirect('galeria')

@@ -47,3 +47,6 @@ class Productos(models.Model):
     def deactivate(self):
         self.active = False
         self.save()
+
+class Userreset(models.Model):
+    nombreusuario = models.CharField(max_length=50)
