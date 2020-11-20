@@ -1,3 +1,4 @@
+/*CSS LOGIN*/
 .login-form {
     width: 340px;
     margin: 50px auto;
@@ -15,10 +16,27 @@
     margin: 0 0 15px;
 }
 
+.user_reset{
+    text-align: center;
+}
+
+/*CSS PRODUCTO*/
 .editar_producto {
     margin-left: 3x;
 }
 
-.editar_productodos {
+.editar_productos {
     margin-left: 5px;
+}
+
+.producto_edit{
+    width: 340px;
+    margin: 50px auto;
+    font-size: 15px;
+}
+
+.producto_nuevo{
+    width: 340px;
+    margin: 50px auto;
+    font-size: 15px;
 }

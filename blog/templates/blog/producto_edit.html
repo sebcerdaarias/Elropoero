@@ -1,8 +1,9 @@
 {% extends 'blog/base.html' %} {% block content %}
-<div id='producto_edit' class='producto_edit'>
-<h2>nuevo producto</h2>
+
+<div class='producto_edit'>
+<h2>Edite producto</h2>
 <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %} {{ form.as_p }}
-    <button type="submit" class="btn btn-default">Guardar</button>
+    <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
 </div>
 {% endblock %}
