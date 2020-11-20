@@ -5,7 +5,7 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $('.login-form input').addClass('form-control ')
+    $('.login-form input').addClass('form-control')
     $('.login-form button').addClass('text-center')
 
 })

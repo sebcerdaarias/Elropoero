@@ -4,17 +4,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('post_list', views.post_list, name='post_list'),
     path('galeria', views.galeria, name='galeria'),
-    path('post/<int:pk>/', views.post_detail, name='post_detail'),
-    path('post/new', views.post_new, name='post_new'),
-    path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('', views.index, name='index'),
     path('logout', views.logout, name='logout'),
     path('login', views.login, name='login'),
     path('producto_new', views.producto_new, name='ingreso_producto'),
     path('producto/<int:pk>/edit/', views.producto_edit, name='producto_edit'),
     path('producto/<int:pk>/del/', views.producto_del, name='producto_del'),
+    path('user_reset', views.user_reset, name='user_reset'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

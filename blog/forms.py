@@ -1,13 +1,6 @@
 from django import forms
 
-from .models import Post, Productos, Userreset
-
-
-class PostForm(forms.ModelForm):
-
-    class Meta:
-        model = Post
-        fields = ('title', 'text',)
+from .models import Productos, Userreset
 
 
 class ProductForm(forms.ModelForm):
@@ -21,4 +14,4 @@ class UserresetForm(forms.ModelForm):
 
     class Meta:
         model = Userreset
-        fields = ('nombreusuario',)
+        fields = ['nombreusuario', ]

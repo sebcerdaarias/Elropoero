@@ -2,59 +2,19 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.contrib import messages
 from .models import *
-from .models import Post, imagenes, Productos, Userreset
+from .models import imagenes, Productos, Userreset
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm, ProductForm, UserresetForm
+from .forms import ProductForm, UserresetForm
 from django.shortcuts import redirect
+from django.utils.crypto import get_random_string
 
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as do_login
-
-
-def post_list(request):
-    posts = Post.objects.filter(
-        published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts})
-
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
-
-
-def post_new(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm()
-    return render(request, 'blog/post_edit.html', {'form': form})
-
-
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'blog/post_edit.html', {'form': form})
-
-
-def home(request):
-    return render(request, 'blog/home.html')
+from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -98,22 +58,6 @@ def login(request):
     return render(request, "blog/login.html", {'form': form})
 
 
-def producto_new(request):
-    data = {
-        'form': ProductForm()
-    }
-    if request.user.is_staff:
-        if request.method == "POST":
-            formulario = ProductForm(request.POST, files=request.FILES)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect('galeria')
-            data['form'] = formulario
-        return render(request, 'blog/producto_nuevo.html', data)
-    else:
-        return redirect('galeria')
-
-
 def producto_edit(request, pk):
     if request.user.is_staff:
         producto = get_object_or_404(Productos, pk=pk)
@@ -131,3 +75,42 @@ def producto_del(request, pk):
     producto = Productos.objects.filter(pk=pk)
     producto.delete()
     return redirect('galeria')
+
+
+def user_reset(request):
+    form = UserresetForm()
+    if request.method == "POST":
+        form = UserresetForm(request.POST)
+        if form.is_valid():
+            usera = request.POST['nombreusuario']
+            user_validate = User.objects.get(username=usera)
+            if not user_validate:
+                return redirect('login')
+            else:
+                new_pass = get_random_string(length=32)
+                user_validate.set_password(new_pass)
+                user_validate.save()
+                asunto = 'Su nueva contraseña desde el Ropero'
+                mensaje = 'Aqui lo que solicitaste tu nueva contraseña es: ' + new_pass
+                from_mail = settings.EMAIL_HOST_USER
+                to = [user_validate.email, ]
+                send_mail(asunto, mensaje, from_mail, to)
+                return redirect('login')
+        form = UserresetForm()
+    return render(request, 'blog/user_reset.html', {'form': form})
+
+
+def producto_new(request):
+    data = {
+        'form': ProductForm()
+    }
+    if request.user.is_staff:
+        if request.method == "POST":
+            formulario = ProductForm(request.POST, files=request.FILES)
+            if formulario.is_valid():
+                formulario.save()
+                return redirect('galeria')
+            data['form'] = formulario
+        return render(request, 'blog/producto_nuevo.html', data)
+    else:
+        return redirect('galeria')
