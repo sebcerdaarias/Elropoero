@@ -35,7 +35,7 @@ class imagenes(models.Model):
 
 class Productos(models.Model):
     nombre = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images/')
+    imagen = models.ImageField()
     valor = models.IntegerField()
     descripcion = models.CharField(max_length=200)
     active = models.BooleanField(default=True)

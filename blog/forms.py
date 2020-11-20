@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post
+from .models import Post,Productos
 
 
 class PostForm(forms.ModelForm):
@@ -10,8 +10,9 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'text',)
 
 
-# class ImgFrom(forms.ModelForm)
-#
-#    class Meta:
-#        model = imagen
-#        fields = ('name', 'imagen')'''
+class ProductForm(forms.ModelForm):
+    
+    class Meta:
+        model = Productos
+        fields = ('nombre','imagen','valor','descripcion','active',)
+

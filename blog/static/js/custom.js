@@ -6,3 +6,8 @@ $(document).ready(function() {
         $(this).addClass("acive-li-nav");
     });
 });
+$(document).ready(function() {
+    $('.login-form input').addClass('form-control ')
+    $('.login-form button').addClass('text-center')
+
+})
