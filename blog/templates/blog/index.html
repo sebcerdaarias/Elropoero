@@ -1,17 +1,12 @@
-{% extends 'blog/base.html' %}
- {% block content %}
+{% extends 'blog/base.html' %} {% block content %}
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
-    <div class="carousel-inner">
-        {% for imagen in imagenes %}
-        <div id="{{ imagen.name }}" class="carousel-item ">
-            <img class="d-block w-100" src="{{ imagen.imagen }}" alt="{{ imagen.name }}">
-        </div>
-        {% endfor %}
+    <div class="carousel-inner" id="carro">
+
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -25,6 +20,27 @@
 <script>
     $(document).ready(function() {
         $('#slide1').addClass('active');
+        let endpoitn = 'http://127.0.0.1:8000/api/imagenes/'
+
+        $.ajax({
+            url: endpoitn,
+            contentType: "application/json",
+            dataType: 'json',
+            success: function(result) {
+                changeima(result)
+
+            }
+        })
+
+        function changeima(result) {
+            var a = ""
+            $.each(result, function(ind, elemt) {
+                a = '<div id="' + elemt['name'] + '" class="carousel-item "><img class="d-block w-100" src="' + elemt['imagen'] + '" alt="' + elemt['name'] + '"></div>'
+                $("#carro").append(a);
+            })
+            $('#slide1').addClass('active');
+
+        }
     })
 </script>
 {% endblock %}

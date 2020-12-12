@@ -8,6 +8,9 @@ from .forms import ProductForm, UserresetForm
 from django.shortcuts import redirect
 from django.utils.crypto import get_random_string
 
+from rest_framework import viewsets
+from .serializers import ProductosSerializers, imagenesSerializer
+
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -103,3 +106,13 @@ def producto_new(request):
         return render(request, 'blog/producto_nuevo.html', data)
     else:
         return redirect('galeria')
+
+
+class ProductosApi(viewsets.ModelViewSet):
+    queryset = Productos.objects.filter(active=True)
+    serializer_class = ProductosSerializers
+
+
+class imagenesAPI(viewsets.ModelViewSet):
+    queryset = imagenes.objects.filter(active=True)
+    serializer_class = imagenesSerializer

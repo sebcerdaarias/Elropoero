@@ -1,7 +1,14 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import ProductosApi, imagenesAPI
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('productos', ProductosApi)
+router.register('imagenes', imagenesAPI)
+
 
 urlpatterns = [
     path('galeria', views.galeria, name='galeria'),
@@ -12,6 +19,7 @@ urlpatterns = [
     path('producto/<int:pk>/edit/', views.producto_edit, name='producto_edit'),
     path('producto/<int:pk>/del/', views.producto_del, name='producto_del'),
     path('user_reset', views.user_reset, name='user_reset'),
+    path('api/', include(router.urls)),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
