@@ -25,7 +25,7 @@ SECRET_KEY = '=4mj5tmxiotc#n1(20n6l0@%$3hh(eziwh2948vb*8jsxr-bsg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com','192.168.0.176']
 
 
 # Application definition
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'rest_framework',
+    'social_django',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'elropero.urls'
@@ -64,6 +67,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+
             ],
         },
     },
@@ -130,3 +136,13 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'elroporeo@gmail.com'
 EMAIL_HOST_PASSWORD = 'Laton123&'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '229586642065789'
+SOCIAL_AUTH_FACEBOOK_SECRET = '3c6280b6aa13fd8a4282ad6d3c3c354c'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR,'serviceworker.js')
