@@ -145,4 +145,18 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+PWA_APP_NAME = "El Ropero"
+PWA_APP_DESCRIPTION = "Venta de ropa de ninos"
+PWA_APP_THEME_COLOR = "#e75625"
+PWA_APP_BACKGROUND_COLOR = "#FFFFFF"
+PWA_APP_DISPLAY = "standalone"
+
+PWA_APP_ICONS = [
+    {
+    "src" : "/static/img/logo2.png",
+    "type": "image/png"
+    }
+]
+
+
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR,'serviceworker.js')
